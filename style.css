@@ -304,6 +304,9 @@ body {
 /* =========================================
    2. MOBILE MODIFIER (Bottom Navigation) - FORCE OVERRIDE
    ========================================= */
+/* =========================================
+   2. MOBILE MODIFIER (Bottom Navigation) - FORCE OVERRIDE
+   ========================================= */
 @media screen and (max-width: 768px) {
   .navbar {
     top: auto !important;
@@ -322,21 +325,34 @@ body {
     box-sizing: border-box !important;
   }
 
+  /* 1. Menampilkan Logo & Mengubah Teks Menjadi WTU */
   .logo {
-    display: none !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important; /* Mencegah logo menyusut */
   }
 
-  /* Memaksa Navigasi Muncul Kembali */
+  .logo a {
+    font-size: 0 !important; /* Menyembunyikan teks asli yang panjang secara visual */
+  }
+
+  .logo a::after {
+    content: "WTU" !important; /* Memunculkan teks singkatan pengganti */
+    font-size: 1.1rem !important; /* Ukuran font untuk logo mobile */
+    font-weight: 700 !important;
+    color: var(--text-accent) !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* 2. Menjaga Navigasi di Tengah */
   .nav-links {
     display: flex !important;
     flex-direction: row !important;
-    flex: 1 !important;
-    justify-content: flex-start !important; /* Rata kiri */
+    justify-content: center !important;
     align-items: center !important;
-    gap: 12px !important; /* Jarak antar menu */
-    margin: 0 !important;
+    gap: 10px !important; /* Jarak sedikit dirapatkan agar muat dengan logo */
+    margin: 0 auto !important;
     padding: 0 !important;
-    width: auto !important;
   }
 
   .nav-links li {
@@ -344,16 +360,16 @@ body {
   }
 
   .nav-links a {
-    font-size: 0.75rem !important; /* Font dikecilkan agar muat di layar HP */
+    font-size: 0.75rem !important;
     padding: 5px 2px !important;
-    white-space: nowrap !important; /* Mencegah teks turun ke bawah */
+    white-space: nowrap !important;
   }
 
-  /* Menjaga Tombol Bahasa di Kanan */
+  /* 3. Menjaga Tombol Bahasa di Kanan */
   .lang-switcher {
-    margin-left: auto !important; /* Mendorong tombol ke ujung kanan */
+    margin-left: 0 !important;
     gap: 5px !important;
-    flex-shrink: 0 !important;
+    flex-shrink: 0 !important; /* Mencegah tombol bahasa rusak */
     display: flex !important;
   }
 
@@ -919,12 +935,13 @@ body {
 /* ==========================================================================
    6. PAGE: HOME / EDITORIAL
    ========================================================================== */
-
-/* Hero Section */
+/* =========================================
+   1. HERO SECTION (Desktop / Base View)
+   ========================================= */
 .hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 7008 / 2003;
+  aspect-ratio: 7008 / 2003; /* Ideal untuk layar monitor lebar */
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -936,7 +953,7 @@ body {
   position: absolute;
   inset: 0;
   background-image: url("images/main3.JPG");
-  background-size: 100% 100%;
+  background-size: cover; /* UBAH: dari 100% 100% menjadi cover agar rasio foto tetap utuh tidak distorsi */
   background-position: center;
   background-repeat: no-repeat;
   filter: contrast(105%) brightness(0.55) saturate(105%);
@@ -965,16 +982,7 @@ body {
   mix-blend-mode: soft-light;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-}
-
+/* Telah dikonsolidasi dari 3 blok yang berulang */
 .hero-content {
   position: relative;
   z-index: 10;
@@ -1002,6 +1010,33 @@ body {
   max-width: 700px;
   color: #d0d0d0;
   font-size: 1.1rem;
+}
+
+/* =========================================
+   2. MOBILE MODIFIER (Hero Section)
+   ========================================= */
+@media screen and (max-width: 768px) {
+  .hero {
+    aspect-ratio: auto; /* Membatalkan efek panorama */
+    min-height: 65vh; /* Menggunakan tinggi dinamis layar (Viewport Height) agar ideal di HP */
+    padding: 60px 20px; /* Memberikan ruang napas (margin dalam) agar teks tidak menempel di tepi layar */
+  }
+
+  .hero h1 {
+    font-size: 2.5rem; /* Mengecilkan teks judul secara absolut untuk mobile */
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+
+  .subtitle {
+    font-size: 0.7rem;
+    margin-bottom: 16px;
+  }
+
+  .desc {
+    font-size: 0.95rem; /* Menyesuaikan ukuran paragraf deskripsi */
+    line-height: 1.6;
+  }
 }
 
 /* Intro Section */
@@ -1453,7 +1488,9 @@ body {
   font-weight: 500;
 }
 
-/* Sidebar Components */
+/* =========================================
+   1. SIDEBAR COMPONENTS (Desktop / Base View)
+   ========================================= */
 .cv-sidebar {
   display: flex;
   flex-direction: column;
@@ -1539,6 +1576,39 @@ body {
 
 .sidebar-link-list li a:hover {
   color: #1a1a1a;
+}
+
+/* =========================================
+   2. MOBILE MODIFIER (Sidebar Components)
+   ========================================= */
+@media screen and (max-width: 768px) {
+  .cv-sidebar {
+    position: static !important; /* Menghapus efek melayang (sticky) */
+    top: auto !important;
+    width: 100% !important;
+    max-width: 480px; /* Batas lebar maksimal agar tidak memenuhi layar tablet/HP lebar */
+    margin: 50px auto 0 auto; /* Centering horizontal & memberi jarak dari konten atas */
+    gap: 24px; /* Merapatkan jarak antar blok agar lebih hemat ruang */
+  }
+
+  .sidebar-block {
+    padding: 20px; /* Mengurangi padding dalam agar komponen tidak terlalu masif */
+    box-sizing: border-box;
+  }
+
+  /* Opsional: Membuat teks judul dan tag cloud berorientasi ke tengah */
+  .sidebar-title {
+    text-align: center;
+  }
+
+  .tag-cloud {
+    justify-content: center;
+  }
+
+  .sidebar-diagnostic-list li,
+  .sidebar-link-list li {
+    text-align: center;
+  }
 }
 
 /* CV Monochrome Hero Architecture */
@@ -2057,6 +2127,12 @@ body {
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .library-showcase-banner {
+    height: 120px; /* Mengurangi tinggi vertikal menjadi setengahnya agar proporsional di HP */
+  }
 }
 
 .style-library {
