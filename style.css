@@ -183,23 +183,35 @@ body {
 /* ==========================================================================
    3. LAYOUT: NAVIGATION
    ========================================================================== */
-
-/* Main Navbar */
+/* =========================================
+   1. BASE NAVBAR (Desktop View)
+   ========================================= */
 .navbar {
-  position: sticky;
+  position: fixed; /* Diubah menjadi fixed agar konsisten menempel */
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 999;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(
+    255,
+    255,
+    255,
+    0.78
+  ); /* Sesuaikan dengan var(--bg-primary) jika perlu */
   border-bottom: 1px solid var(--border);
+  margin-bottom: 0 !important;
 }
 
 .nav-container {
-  height: 78px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  height: 78px;
+  max-width: 1200px; /* Opsional: batas lebar aman */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logo a {
@@ -207,22 +219,29 @@ body {
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--text-accent);
 }
 
 .nav-links {
   display: flex;
+  list-style: none;
   gap: 32px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
   position: relative;
+  text-decoration: none;
   color: var(--text-soft);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  transition: var(--ease);
+  transition: var(--ease, 0.3s ease);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--text);
 }
 
@@ -264,16 +283,12 @@ body {
   text-transform: uppercase;
   color: var(--text-soft);
   padding: 4px 6px;
-  transition: var(--ease);
+  transition: var(--ease, 0.3s ease);
 }
 
-.lang-btn:hover {
-  color: var(--text);
-}
-
+.lang-btn:hover,
 .lang-btn.active {
   color: var(--text);
-  position: relative;
 }
 
 .lang-btn.active::after {
@@ -286,79 +301,67 @@ body {
   background: var(--accent-blue);
 }
 
-/* Library Architecture Integration Navbar Modifier */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  margin-bottom: 0 !important;
-}
+/* =========================================
+   2. MOBILE MODIFIER (Bottom Navigation) - FORCE OVERRIDE
+   ========================================= */
+@media screen and (max-width: 768px) {
+  .navbar {
+    top: auto !important;
+    bottom: 0 !important;
+    border-bottom: none !important;
+    border-top: 1px solid var(--border) !important;
+    position: fixed !important;
+  }
 
-/* Essays Navbar Redefinition */
-.navbar {
-  border-bottom: 1px solid var(--border-color);
-  background: var(--bg-primary);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+  .nav-container {
+    height: 60px !important;
+    padding: 0 10px !important;
+    justify-content: space-between !important;
+    display: flex !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
 
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-}
+  .logo {
+    display: none !important;
+  }
 
-.serif-brand {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--text-accent);
-}
+  /* Memaksa Navigasi Muncul Kembali */
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    flex: 1 !important;
+    justify-content: flex-start !important; /* Rata kiri */
+    align-items: center !important;
+    gap: 12px !important; /* Jarak antar menu */
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
 
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
+  .nav-links li {
+    display: block !important;
+  }
 
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
+  .nav-links a {
+    font-size: 0.75rem !important; /* Font dikecilkan agar muat di layar HP */
+    padding: 5px 2px !important;
+    white-space: nowrap !important; /* Mencegah teks turun ke bawah */
+  }
 
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--text-accent);
-}
+  /* Menjaga Tombol Bahasa di Kanan */
+  .lang-switcher {
+    margin-left: auto !important; /* Mendorong tombol ke ujung kanan */
+    gap: 5px !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+  }
 
-.lang-switcher {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--border-color);
+  .lang-btn {
+    font-size: 0.7rem !important;
+    padding: 2px !important;
+  }
 }
-
-.lang-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.lang-btn.active {
-  color: var(--text-accent);
-}
-
 /* ==========================================================================
    4. LAYOUT: FOOTER
    ========================================================================== */
