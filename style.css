@@ -1,0 +1,1774 @@
+/* ==========================================================================
+   SISTEM CSS: "WRITING THROUGH UNCERTAINTY" (WTU)
+   TEMA: IVY LEAGUE ACADEMIC / FORMAL DOSSIER
+   
+   TABLE OF CONTENTS
+   0. IMPORTS & FONTS
+   1. VARIABLES & DESIGN TOKENS
+   2. GLOBAL & RESET STYLES
+   3. COMPONENTS & UTILITIES (Buttons, Forms, Lightbox)
+   4. LAYOUT: HEADER & NAVIGATION
+   5. LAYOUT: FOOTER
+   6. PAGE: PROFILE (ACADEMIC CV)
+   7. PAGE: MEMOIRS (JOURNEYS & LOGBOOK)
+   8. PAGE: DIGITAL LIBRARY
+   9. PAGE: NOTES (ESSAYS / WTU)
+   10. GLOBAL RESPONSIVE RULES (MOBILE ADAPTATION)
+   ========================================================================== */
+
+/* ==========================================================================
+   0. IMPORTS & FONTS
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap");
+
+/* ==========================================================================
+   1. VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+  /* Core Colors - Academic Palette */
+  --bg-paper: #faf9f6; /* Latar belakang utama: warna perkamen/kertas arsip */
+  --bg-white: #ffffff; /* Latar belakang bersih untuk card/konten spesifik */
+  --bg-alt: #f4f4f0; /* Latar belakang sekunder untuk pemisah section */
+
+  --text-main: #222222; /* Warna teks utama: arang pekat (bukan hitam murni) */
+  --text-muted: #555555; /* Warna teks sekunder/meta data */
+
+  --accent-crimson: #8b0000; /* Aksen utama: Harvard/Ivy Crimson */
+  --accent-gold: #d4af37; /* Aksen prestise: Emas klasik */
+  --accent-bronze: #cd7f32; /* Aksen tersier: Perunggu */
+
+  --border-color: #dcdcdc; /* Garis batas standar */
+  --border-dark: #1a1a1a; /* Garis batas tegas untuk header/footer */
+
+  /* Typography */
+  --font-serif:
+    "Crimson Text", Georgia, serif; /* Font untuk narasi, paragraf, dan heading */
+  --font-sans:
+    "Inter", -apple-system, sans-serif; /* Font untuk UI, navigasi, dan meta data */
+
+  /* Radius & Motion */
+  --radius-xs: 2px; /* Sudut tajam/klasik untuk elemen institusional */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --ease: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   2. GLOBAL & RESET STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px; /* Offset untuk header yang sticky */
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  font-family: var(--font-serif);
+  line-height: 1.8;
+  font-size: 1.15rem; /* Ukuran baca optimal untuk artikel akademis */
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--ease);
+}
+
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0 2rem;
+}
+
+.text-center {
+  text-align: center;
+}
+.serif {
+  font-family: var(--font-serif);
+}
+.sans {
+  font-family: var(--font-sans);
+}
+.italic {
+  font-style: italic;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   3. COMPONENTS & UTILITIES
+   ========================================================================== */
+/* Section Titles (Format Dossier) */
+.page-title-banner {
+  text-align: center;
+  max-width: 800px;
+  margin: 4rem auto;
+  animation: fadeUp 0.8s var(--ease) forwards;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.title-ornament {
+  width: 60px;
+  height: 2px;
+  background-color: var(--accent-crimson);
+  margin: 0 auto 1.5rem auto;
+}
+
+.page-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Search Input Formal */
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  transition: var(--ease);
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--accent-crimson);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.05);
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
+/* Pemisah antar seksi akademis */
+.academic-separator {
+  text-align: center;
+  margin: 4rem 0;
+  color: var(--border-color);
+  font-size: 1.5rem;
+  letter-spacing: 1rem;
+}
+
+/* Lightbox untuk Gambar Arsip */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  background-color: rgba(17, 17, 17, 0.95);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lightbox-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+.lightbox-content {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 4px solid var(--bg-white); /* Bingkai foto klasik */
+}
+
+/* ==========================================================================
+   4. LAYOUT: HEADER & NAVIGATION
+   ========================================================================== */
+.university-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: var(--bg-white);
+  border-bottom: 4px double var(--border-color); /* Gaya bingkai ijazah/dokumen resmi */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* Bar Merah Kecil di Atas */
+.top-bar {
+  background-color: var(--accent-crimson);
+  color: #fff;
+  padding: 6px 0;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.top-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.lang-switcher button {
+  background: none;
+  border: none;
+  color: #fff;
+  opacity: 0.6;
+  cursor: pointer;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+.lang-switcher button.active {
+  opacity: 1;
+  font-weight: 600;
+}
+.lang-divider {
+  margin: 0 5px;
+  opacity: 0.5;
+}
+
+/* Navigasi Utama */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo .serif-brand {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.nav-links a {
+  color: var(--text-main);
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent-crimson);
+  border-bottom-color: var(--accent-crimson);
+}
+
+/* ==========================================================================
+   5. LAYOUT: FOOTER
+   ========================================================================== */
+.university-footer {
+  margin-top: 6rem;
+  padding: 4rem 0 2rem 0;
+  background-color: var(--bg-white);
+  border-top: 4px double var(--border-color);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand {
+  font-size: 1.8rem;
+  color: var(--accent-crimson);
+  margin-bottom: 0.5rem;
+}
+
+.footer-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+}
+
+.footer-links-group h4 {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.footer-links-group ul li {
+  margin-bottom: 0.75rem;
+}
+.footer-links-group a {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.footer-links-group a:hover {
+  color: var(--accent-crimson);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  text-align: center;
+}
+.copyright {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   6. PAGE: PROFILE (ACADEMIC CV)
+   ========================================================================== */
+.cv-page-wrapper {
+  display: grid;
+  grid-template-columns: 2.8fr 1.2fr;
+  gap: 60px;
+  padding: 40px 0 80px 0;
+}
+
+/* Konten Utama CV */
+.cv-section-block {
+  margin-bottom: 3rem;
+}
+
+.cv-section-title {
+  font-size: 1.75rem;
+  color: var(--accent-crimson);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cv-body-text p {
+  text-align: justify;
+  hyphens: auto;
+  margin-bottom: 1.25rem;
+}
+
+/* Elemen Garis Waktu Akademis */
+.cv-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cv-timeline-item {
+  position: relative;
+  border-left: 2px solid var(--border-color);
+  padding-left: 24px;
+}
+
+.cv-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-paper);
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  transition: var(--ease);
+}
+
+.cv-timeline-item:hover::before {
+  border-color: var(--accent-crimson);
+}
+.cv-timeline-item.border-gold {
+  border-left-color: var(--accent-gold);
+}
+.cv-timeline-item.border-gold::before {
+  border-color: var(--accent-gold);
+}
+
+.cv-item-date {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  display: block;
+  margin-bottom: 0.25rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cv-timeline-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.cv-item-meta {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Sidebar CV */
+.cv-sidebar {
+  position: sticky;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebar-block {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05); /* Nuansa kartu arsip klasik */
+}
+
+.sidebar-block.border-crimson {
+  border-top: 3px solid var(--accent-crimson);
+}
+
+.sidebar-title {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   7. PAGE: MEMOIRS (JOURNEYS & LOGBOOK)
+   ========================================================================== */
+.memoir-hero {
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  background-color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.memoir-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4; /* Tampilan suram/elegan untuk foto arsip */
+  filter: grayscale(80%) sepia(20%);
+}
+
+.memoir-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* Grid Arsip/Dokumentasi */
+.memoir-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.memoir-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  transition: var(--ease);
+}
+
+.memoir-card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.memoir-card-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--bg-alt);
+  margin-bottom: 1rem;
+}
+
+.memoir-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1); /* Nuansa foto dokumenter */
+  transition: var(--ease);
+}
+
+.memoir-card:hover .memoir-card-image img {
+  filter: grayscale(0%) contrast(1);
+}
+
+.memoir-card-caption {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   8. PAGE: DIGITAL LIBRARY
+   ========================================================================== */
+.library-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.library-filter select {
+  font-family: var(--font-sans);
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-white);
+  border-radius: var(--radius-xs);
+  outline: none;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 3rem 2rem;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  background-color: var(--border-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  transition: var(--ease);
+}
+
+.book-cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 4%;
+  bottom: 0;
+  width: 2%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.book-card:hover .book-cover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.book-info {
+  margin-top: 1rem;
+  text-align: center;
+}
+.book-category {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--accent-crimson);
+  letter-spacing: 1px;
+}
+.book-info h3 {
+  font-size: 1.1rem;
+  margin: 4px 0;
+}
+.book-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   9. PAGE: NOTES (ESSAYS / WTU)
+   ========================================================================== */
+.layout-academic {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+.essay-article {
+  margin-bottom: 4rem;
+}
+
+.essay-meta {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.essay-meta .meta-tag {
+  color: var(--accent-crimson);
+  font-weight: 600;
+}
+
+.essay-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/* Tipografi Esai Formal */
+.academic-text p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Initial Letter (Drop Cap) bergaya naskah tua */
+.academic-text p.drop-cap::first-letter {
+  float: left;
+  font-size: 4.8rem;
+  line-height: 0.8;
+  padding-right: 8px;
+  padding-top: 8px;
+  color: var(--accent-crimson);
+  font-family: var(--font-serif);
+}
+
+/* Catatan Pinggir (Marginalia) */
+.marginal-note {
+  background: var(--bg-white);
+  border-left: 3px solid var(--accent-gold);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-muted);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Kutipan Langsung */
+.pull-quote {
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2rem 0;
+  margin: 3rem 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--accent-crimson);
+}
+
+/* Daftar Isi (Sidebar) */
+.toc-list {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+.toc-list li {
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+.toc-list a {
+  display: flex;
+  gap: 10px;
+  color: var(--text-muted);
+}
+.toc-list a:hover {
+  color: var(--accent-crimson);
+}
+.toc-roman {
+  font-weight: 600;
+  color: var(--text-main);
+  width: 25px;
+}
+
+/* ==========================================================================
+   10. GLOBAL RESPONSIVE RULES (MOBILE ADAPTATION)
+   ========================================================================== */
+@media screen and (max-width: 992px) {
+  .layout-academic,
+  .cv-page-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .cv-sidebar {
+    position: static;
+    border-top: 2px solid var(--border-color);
+    padding-top: 2rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .page-title {
+    font-size: 2.2rem;
+  }
+
+  .academic-text p.drop-cap::first-letter {
+    font-size: 3.5rem;
+  }
+
+  .library-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* ==========================================================================
+   PERBAIKAN TYPOGRAPHY & READABILITY (ESSAY / NOTES)
+   ========================================================================== */
+
+/* 1. Perbaikan Heading di dalam Teks */
+.academic-text h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 3rem 0 1.2rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color); /* Garis batas bawah yang elegan */
+  line-height: 1.3;
+}
+
+/* 2. Perbaikan Bullet List (Kerapian Indentasi) */
+.academic-text ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.academic-text ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.85rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+.academic-text ul li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent-crimson);
+  font-weight: 600;
+}
+
+/* 3. Perbaikan Bingkai Gambar (Gaya Dokumen Arsip/Passe-partout) */
+.formal-figure {
+  margin: 2.5rem 0;
+  padding: 1.25rem;
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-color);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.03); /* Bayangan solid khas kertas tumpuk */
+  border-radius: var(--radius-xs);
+}
+
+.formal-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Garis batas halus di sekeliling gambar */
+}
+
+.formal-figure figcaption {
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Mempercantik Gambar Legenda di Sidebar */
+#spatial-legend-module img {
+  padding: 0.5rem;
+  background: var(--bg-white);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 0.5rem;
+}
+/* ==========================================================================
+   11. PAGE: HOME / DOSSIER INDEX (Tambahan untuk index.html)
+   ========================================================================== */
+.dossier-hero {
+  position: relative;
+  padding: 8rem 0 6rem;
+  background-color: var(--bg-paper);
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.dossier-hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Transisi Halus untuk Efek Scroll JS */
+.dossier-hero-content .page-subtitle,
+.dossier-hero-content .page-title,
+.dossier-hero-content .title-ornament {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dossier-hero.animate-active .page-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+.dossier-hero.animate-active .page-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+.dossier-hero.animate-active .title-ornament {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.6s;
+}
+
+/* Section Khusus Beranda */
+.dossier-section {
+  padding: 6rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dossier-section.bg-alt {
+  background-color: var(--bg-alt);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  border-bottom: 2px solid var(--border-dark);
+  padding-bottom: 1rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.view-all {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-crimson);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-all:hover {
+  color: var(--text-main);
+}
+
+/* Grid & Cards Akademis */
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.dossier-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem 2rem;
+  transition: var(--ease);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: var(--ease);
+}
+
+.dossier-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 4px 12px 30px rgba(0, 0, 0, 0.06);
+  border-color: #cccccc;
+}
+
+.dossier-card.border-crimson:hover::before {
+  background: var(--accent-crimson);
+}
+.dossier-card.border-gold:hover::before {
+  background: var(--accent-gold);
+}
+
+.dossier-card .category {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.dossier-card .serif-title {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.dossier-card p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* Tata Letak Pengantar (Introduction) */
+.intro-academic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.intro-image-formal {
+  padding: 1rem;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.intro-image-formal img {
+  width: 100%;
+  filter: grayscale(100%);
+  transition: var(--ease);
+}
+
+.intro-image-formal:hover img {
+  filter: grayscale(0%);
+}
+
+@media screen and (max-width: 992px) {
+  .intro-academic {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* ==========================================================================
+   TAMBAHAN CSS: SIDEBAR FILTER & SEARCH (NOTES PAGE)
+   ========================================================================== */
+.filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-list li {
+  margin-bottom: 0;
+}
+
+.tag-filter-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px dashed var(--border-color);
+  transition: var(--ease);
+}
+
+.tag-filter-btn:hover,
+.tag-filter-btn.active {
+  color: var(--accent-crimson);
+  border-bottom: 1px solid var(--accent-crimson);
+  font-weight: 600;
+}
+
+.no-results-box {
+  text-align: center;
+  padding: 4rem 2rem;
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  background: var(--bg-white);
+}
+
+/* Penyesuaian jarak artikel agar lebih rapi */
+.essay-content-wrapper {
+  margin-top: 1.5rem;
+}
+
+.essay-header {
+  border-bottom: 2px solid var(--border-dark);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   TAMBAHAN CSS: MINIMAL SEARCH & ACCORDION TOC (SIDEBAR)
+   ========================================================================== */
+
+/* 1. Minimal Search Box (Garis Bawah Saja & Icon) */
+.search-minimal-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.search-minimal-icon {
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-minimal-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 0 8px 28px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  outline: none;
+  transition: var(--ease);
+}
+
+.search-minimal-input:focus {
+  border-bottom-color: var(--accent-crimson);
+}
+
+.search-minimal-input::placeholder {
+  color: #a3a3a3;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+}
+
+/* 2. Accordion Toggle untuk Table of Contents */
+.toc-accordion {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.toc-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: none;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0;
+  user-select: none;
+}
+
+/* Menyembunyikan panah bawaan browser (Webkit & Firefox) */
+.toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Indikator [+] dan [-] Kustom bergaya presisi */
+.toc-icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
+.toc-icon::before,
+.toc-icon::after {
+  content: "";
+  position: absolute;
+  background-color: var(--text-main);
+  transition: var(--ease);
+}
+
+.toc-icon::before {
+  top: 5px;
+  left: 0;
+  width: 12px;
+  height: 1.5px;
+}
+
+.toc-icon::after {
+  top: 0;
+  left: 5px;
+  width: 1.5px;
+  height: 12px;
+}
+
+.toc-accordion[open] .toc-icon::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+.toc-content {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  animation: slideDownFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Perbaikan estetika list TOC */
+.toc-list li {
+  border-bottom: none; /* Menghilangkan garis pembatas antar list */
+  padding-bottom: 0;
+  margin-bottom: 0.85rem;
+}
+
+.index-anchor-link {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.index-anchor-link .toc-roman {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-main);
+  margin-right: 8px;
+}
+
+/* ==========================================================================
+   TAMBAHAN CSS: ACADEMIC CV & PROFILE COMPONENTS
+   ========================================================================== */
+
+/* Timeline CV Formal */
+.cv-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+}
+
+.cv-timeline-item {
+  position: relative;
+  border-left: 2px solid var(--border-color);
+  padding-left: 24px;
+}
+
+.cv-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--bg-paper);
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  transition: var(--ease);
+}
+
+.cv-timeline-item:hover::before {
+  border-color: var(--accent-crimson);
+  background-color: var(--accent-crimson);
+}
+
+.cv-item-date {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-crimson);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cv-timeline-item h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.cv-item-meta {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.cv-body-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  text-align: justify;
+  margin-bottom: 1rem;
+}
+
+/* Tautan dalam CV */
+.cv-inline-link {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 2px;
+  transition: var(--ease);
+}
+
+.cv-inline-link:hover {
+  color: var(--accent-crimson);
+  border-bottom-color: var(--accent-crimson);
+}
+
+.cv-link-group {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--border-color);
+  margin-top: 0.5rem;
+}
+
+.cv-link-group a {
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 5px;
+  transition: var(--ease);
+}
+
+.cv-link-group a:first-child {
+  margin-left: 0;
+}
+.cv-link-group a:hover {
+  color: var(--accent-crimson);
+}
+
+/* Daftar Bullet dalam CV (Awards) */
+.cv-inner-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cv-inner-list li {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  text-align: justify;
+}
+
+.cv-inner-list li::before {
+  content: "—";
+  position: absolute;
+  left: -0.5rem;
+  color: var(--accent-crimson);
+}
+
+/* Grid untuk Publik Speaking / Podcast */
+.cv-podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.podcast-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--ease);
+}
+
+.podcast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.04);
+  border-color: var(--text-muted);
+}
+
+.podcast-card .podcast-year {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--accent-crimson);
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.podcast-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.podcast-card p {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.podcast-card a {
+  color: var(--text-main);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--border-color);
+  text-underline-offset: 4px;
+}
+.podcast-card a:hover {
+  text-decoration-color: var(--accent-crimson);
+}
+
+/* ==========================================================================
+   PERBAIKAN CSS: ACADEMIC SIDEBAR (MEMOIRS, ESSAYS, & PROFILE)
+   ========================================================================== */
+
+/* 1. Tata Letak Dasar Sidebar */
+.academic-sidebar,
+.cv-sidebar {
+  position: sticky;
+  top: 120px;
+  padding-left: 2.5rem;
+  border-left: 1px solid var(--border-color); /* Garis pemisah vertikal arsip */
+  height: max-content;
+}
+
+.sidebar-module,
+.sidebar-block {
+  margin-bottom: 2.5rem;
+}
+
+/* Judul Modul Sidebar */
+.module-title,
+.sidebar-title {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+/* 2. Modul Pencarian Minimalis (Hanya Garis Bawah & Ikon) */
+.search-minimal-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-minimal-icon {
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  stroke: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-minimal-input {
+  width: 100%;
+  background: transparent;
+  border: none !important; /* Memaksa penimpaan border bawaan browser */
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 8px 0 8px 26px !important;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-main);
+  outline: none;
+  border-radius: 0;
+  transition: var(--ease);
+}
+
+.search-minimal-input:focus {
+  border-bottom-color: var(--accent-crimson) !important;
+}
+
+.search-minimal-input::placeholder {
+  color: #a3a3a3;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* 3. Daftar Isi (Table of Contents) */
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  border: none !important; /* Menghapus garis bawah tebal antar list */
+  padding: 0 !important;
+  margin-bottom: 0.85rem !important;
+}
+
+.index-anchor-link {
+  display: flex;
+  align-items: flex-start;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-decoration: none;
+  transition: var(--ease);
+}
+
+.toc-roman {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  min-width: 28px; /* Menyelaraskan angka romawi agar teks di kanannya rata */
+  color: var(--text-main);
+}
+
+.index-anchor-link:hover,
+.index-anchor-link.active {
+  color: var(--accent-crimson);
+}
+
+.index-anchor-link:hover .toc-roman,
+.index-anchor-link.active .toc-roman {
+  color: var(--accent-crimson);
+}
+
+/* 4. Blok Identitas (Diagnostic List) */
+.sidebar-diagnostic-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-diagnostic-list li {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+
+.sidebar-diagnostic-list strong {
+  min-width: 85px; /* Mengunci lebar label agar titik dua rata sempurna */
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.sidebar-diagnostic-list span {
+  color: var(--text-main);
+  flex: 1;
+}
+
+/* 5. Tag Keahlian (Professional & Technical Skills) */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cv-tag {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  background: var(--bg-paper); /* Menyatu dengan kertas arsip */
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 2px; /* Sudut tajam formal */
+  transition: var(--ease);
+  display: inline-block;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.03); /* Efek plat cetak */
+  cursor: default;
+}
+
+.cv-tag:hover {
+  border-color: var(--accent-crimson);
+  color: var(--accent-crimson);
+  box-shadow: 2px 2px 0px rgba(139, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* 6. Matriks Jaringan (Network Links) */
+.sidebar-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+
+.sidebar-link-list li {
+  margin-bottom: 0.6rem;
+}
+
+.sidebar-link-list a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--ease);
+  border-bottom: 1px dashed transparent;
+  padding-bottom: 1px;
+}
+
+.sidebar-link-list a:hover {
+  color: var(--accent-crimson);
+  border-bottom: 1px dashed var(--accent-crimson); /* Efek garis putus-putus saat di-hover */
+}
+
+/* 7. Penyesuaian Responsif Mobile untuk Sidebar */
+@media screen and (max-width: 992px) {
+  .academic-sidebar,
+  .cv-sidebar {
+    border-left: none;
+    padding-left: 0;
+    border-top: 2px solid var(--border-dark);
+    padding-top: 3rem;
+  }
+}
+
+/* --- 1. CORE VARIABLES --- */
+
+/* --- 2. GLOBAL RESET --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  font-family: var(--font-serif);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- 4. LAYOUT & SIDEBAR --- */
+.layout-academic {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 80px;
+  align-items: start;
+}
+.academic-sidebar {
+  position: sticky;
+  top: 120px;
+  border-left: 1px solid var(--border-color);
+  padding-left: 40px;
+}
+
+.module-title {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+.search-minimal-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-minimal-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  background: transparent;
+  padding: 8px 0;
+  outline: none;
+}
+
+.image-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.formal-figure {
+  margin: 2.5rem 0;
+  padding: 1.25rem;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+}
+.formal-figure img {
+  width: 100%;
+  display: block;
+}
+.formal-figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Legenda Animasi */
+#spatial-legend-module {
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--ease);
+}
+#spatial-legend-module.show-legend {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- 5. RESPONSIVE --- */
+@media (max-width: 992px) {
+  .layout-academic {
+    grid-template-columns: 1fr;
+  }
+  .academic-sidebar {
+    border-left: none;
+    padding-left: 0;
+    border-top: 2px solid var(--border-dark);
+    padding-top: 2rem;
+  }
+}
