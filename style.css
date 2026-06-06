@@ -1861,7 +1861,7 @@ body {
 }
 
 /* ==========================================
-   MOBILE MODE
+   MOBILE ACADEMIC LAYOUT
    ========================================== */
 
 @media (max-width: 768px) {
@@ -1872,60 +1872,62 @@ body {
     display: none;
   }
 
-  /* Hilangkan top bar */
+  /* Hilangkan bar merah atas */
   .top-bar {
     display: none;
   }
 
-  /* Header lebih pendek */
+  /* Header lebih ringkas */
   .university-header {
-    border-bottom-width: 2px;
+    border-bottom: 2px solid var(--border-color);
   }
 
   .main-nav {
-    padding: 0.85rem 1rem;
-    min-height: 60px;
-  }
-
-  /* Logo lebih kecil */
-  .logo .serif-brand {
-    font-size: 1.15rem;
-    line-height: 1.2;
-  }
-
-  /* Sembunyikan menu navigasi */
-  .nav-links {
-    display: none;
-  }
-
-  /* Logo rata kiri */
-  .main-nav {
-    justify-content: flex-start;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
   }
 
-  /* Tambahkan ikon pencarian semu */
-  .main-nav::after {
-    content: "⌕";
-    margin-left: auto;
-    font-size: 1.2rem;
-    color: var(--text-main);
-    cursor: pointer;
+  /* Logo lebih jelas */
+  .logo .serif-brand {
+    font-size: 1.45rem;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  /* Navigasi tetap tampil */
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  .nav-links a {
+    padding-bottom: 2px;
   }
 }
 
 @media (max-width: 480px) {
 
   .main-nav {
-    padding: 0.75rem 0.8rem;
-    min-height: 56px;
+    padding: 0.9rem 0.75rem;
+    gap: 0.6rem;
   }
 
   .logo .serif-brand {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
-  .main-nav::after {
-    font-size: 1.1rem;
+  .nav-links {
+    gap: 0.5rem 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
   }
 }
