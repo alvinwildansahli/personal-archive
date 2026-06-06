@@ -1680,6 +1680,19 @@ img {
   flex: 1;
 }
 
+@media (max-width: 768px) {
+  .cv-page-wrapper,
+  .archive-layout,
+  .journey-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .academic-sidebar,
+  .cv-sidebar {
+    order: -1;
+  }
+}
 /* 5. Tag Keahlian (Professional & Technical Skills) */
 .tag-cloud {
   display: flex;
