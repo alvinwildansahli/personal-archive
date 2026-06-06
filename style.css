@@ -1859,3 +1859,73 @@ body {
     padding-top: 2rem;
   }
 }
+
+/* ==========================================
+   MOBILE MODE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+  /* Hilangkan sidebar */
+  .academic-sidebar,
+  .cv-sidebar {
+    display: none;
+  }
+
+  /* Hilangkan top bar */
+  .top-bar {
+    display: none;
+  }
+
+  /* Header lebih pendek */
+  .university-header {
+    border-bottom-width: 2px;
+  }
+
+  .main-nav {
+    padding: 0.85rem 1rem;
+    min-height: 60px;
+  }
+
+  /* Logo lebih kecil */
+  .logo .serif-brand {
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+
+  /* Sembunyikan menu navigasi */
+  .nav-links {
+    display: none;
+  }
+
+  /* Logo rata kiri */
+  .main-nav {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /* Tambahkan ikon pencarian semu */
+  .main-nav::after {
+    content: "⌕";
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .main-nav {
+    padding: 0.75rem 0.8rem;
+    min-height: 56px;
+  }
+
+  .logo .serif-brand {
+    font-size: 1rem;
+  }
+
+  .main-nav::after {
+    font-size: 1.1rem;
+  }
+}
